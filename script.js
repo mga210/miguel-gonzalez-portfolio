@@ -955,21 +955,21 @@ function closeResumeModal() {
 }
 
 function downloadSelectedResume() {
-    const selectedFormat = document.querySelector('input[name="resumeFormat"]:checked').value;
+    const selected = document.querySelector('input[name="resumeFormat"]:checked').value;
+    const files = {
+        implementation: 'Miguel_Gonzalez_Resume.docx',
+        product: 'Miguel_Gonzalez_Resume_Product.docx',
+        program: 'Miguel_Gonzalez_Resume_Program.docx',
+        solutions: 'Miguel_Gonzalez_Resume_Solutions.docx',
+        operations: 'Miguel_Gonzalez_Resume_Operations.docx'
+    };
+    const filename = files[selected] || files.implementation;
     const link = document.createElement('a');
-    
-    if (selectedFormat === 'pdf') {
-        link.href = 'resume.pdf';
-        link.download = 'Miguel_Gonzalez_Resume.pdf';
-    } else {
-        link.href = 'resume.docx';
-        link.download = 'Miguel_Gonzalez_Resume.docx';
-    }
-    
+    link.href = filename;
+    link.download = filename;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
     closeResumeModal();
     showNotification('Resume downloaded successfully!', 'success');
 }
